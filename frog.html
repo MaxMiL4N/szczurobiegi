@@ -14,10 +14,9 @@
     <script>
         const settings =
         {
-            circleSpeed: 0.001,
             arcs: 15,
             radiusStep: 15,
-            ballSize: 10,
+            ballSize: 6,
 
         }
         startTime = new Date().getTime();
@@ -40,14 +39,14 @@
                 pen.stroke();
             }
 
-
+            //balls
             for (let i = 1; i <= settings.arcs; i++) {
                 pen.beginPath();
                 const currentTime = new Date().getTime();
                 timeElapsed = currentTime - startTime;
                 
-                pathLength = Math.PI * i * 0.1;
-                distance = (timeElapsed / pathLength * settings.circleSpeed) % Math.PI * 2;
+                distance = (timeElapsed * (50 - i) * 0.00002) % Math.PI * 2;
+
                 distance = distance < Math.PI ? -distance : distance;
                 distance -= Math.PI / 2;
 
