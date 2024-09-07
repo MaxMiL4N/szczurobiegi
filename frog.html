@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <script src="jquery-1.9.1.min.js"></script>
+    <style>
+        
+    </style>
+    <canvas id="canvas" width="1850" height="900" style="border:1px solid grey"></canvas>
+
+    <script>
+        const settings =
+        {
+            circleSpeed: 0.001,
+            arcs: 15,
+            radiusStep: 15,
+            ballSize: 10,
+
+        }
+        startTime = new Date().getTime();
+        const canvas = document.getElementById("canvas");
+        const pen = canvas.getContext("2d");
+
+        var colors = [settings.arcs];
+        for (let i = 0; i < settings.arcs; i++) {
+            colors[i] = randomRGB();
+        }
+        
+
+        const draw = () => {
+            pen.clearRect(0, 0, canvas.width, canvas.height);
+            //arcs
+            for (let i = 1; i <= settings.arcs; i++) {
+                pen.fillStyle = colors[i - 1];
+                pen.beginPath();
+                pen.arc(900, 400, settings.radiusStep * i, Math.PI, 0);
+                pen.stroke();
+            }
+
+
+            for (let i = 1; i <= settings.arcs; i++) {
+                pen.beginPath();
+                const currentTime = new Date().getTime();
+                timeElapsed = currentTime - startTime;
+                
+                pathLength = Math.PI * i * 0.1;
+                distance = (timeElapsed / pathLength * settings.circleSpeed) % Math.PI * 2;
+                distance = distance < Math.PI ? -distance : distance;
+                distance -= Math.PI / 2;
+
+                pen.fillStyle = colors[i - 1];
+                pen.arc(900 + Math.sin(distance) * settings.radiusStep * i, 400 + Math.cos(distance) * settings.radiusStep * i, settings.ballSize, 0, 2 * Math.PI)
+                pen.fill();
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+        
+        function randomRGB()
+        {
+            const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+            var r = randomBetween(0, 255);
+            var g = randomBetween(0, 255);
+            var b = randomBetween(0, 255);
+            return ("#"+(r).toString(16)+(g).toString(16)+(b).toString(16));
+        }
+    </script>
+</body>
+</html>
