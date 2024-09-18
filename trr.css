@@ -1,0 +1,41 @@
+.mainText{
+    font-family: Helvetica;
+    text-align: center;
+    font-size: 300%;
+}
+
+body{
+    background-color: grey;
+}
+
+
+.imageContainer{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    gap: 20px;
+}
+.imageColumn{
+    display: flex;
+    gap: 20px;
+    width: 600px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.imageColumn *{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.image{
+    background-color: rgb(22, 22, 22);
+}
+.image > img{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.image > p{
+    color: white;
+    line-height: 20px;
+    padding-left: 10px;
+}
